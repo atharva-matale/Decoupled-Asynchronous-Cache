@@ -1,0 +1,222 @@
+/* ===== Architecture Pipeline Diagram ===== */
+.arch-panel {
+  background: rgba(19, 26, 42, 0.76);
+  border: 1px solid #273148;
+  border-radius: 13px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.arch-container {
+  display: flex;
+  gap: 0;
+  padding: 10px 24px 24px;
+  align-items: stretch;
+}
+
+/* Each path column */
+.arch-path {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 12px;
+  border-radius: 12px;
+}
+
+.arch-critical {
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.06) 0%, rgba(52, 211, 153, 0.02) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+}
+
+.arch-background {
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.06) 0%, rgba(167, 139, 250, 0.02) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+/* Path labels */
+.arch-path-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #8994a8;
+  margin-bottom: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.arch-fast {
+  color: #34d399;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+.arch-status {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.arch-active {
+  color: #34d399;
+}
+
+/* Nodes */
+.arch-nodes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.arch-node span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd2df;
+  letter-spacing: 0.04em;
+}
+
+.arch-node small {
+  font-size: 10px;
+  color: #7c869a;
+  font-weight: 500;
+}
+
+.arch-icon {
+  font-size: 18px !important;
+}
+
+/* Node colors */
+.arch-node-req { background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.2); }
+.arch-node-cache { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); }
+.arch-node-kl { background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); }
+.arch-node-resp { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); }
+.arch-node-log { background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.2); }
+.arch-node-feat { background: rgba(244, 114, 182, 0.1); border: 1px solid rgba(244, 114, 182, 0.2); }
+.arch-node-ml { background: rgba(129, 140, 248, 0.1); border: 1px solid rgba(129, 140, 248, 0.2); }
+.arch-node-update { background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); }
+
+/* Pulsing ML node when active */
+.arch-pulse {
+  animation: arch-glow 2s ease-in-out infinite;
+}
+
+@keyframes arch-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(129, 140, 248, 0); }
+  50% { box-shadow: 0 0 15px rgba(129, 140, 248, 0.3); }
+}
+
+/* Arrows */
+.arch-arrow {
+  color: #34d399;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.arch-arrow-async {
+  color: #a78bfa;
+}
+
+/* No-wait badge */
+.arch-no-wait {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #fca5a5;
+}
+
+.arch-x {
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* Loop badge */
+.arch-loop {
+  margin-top: 14px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #c4b5fd;
+}
+
+/* Divider between paths */
+.arch-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 8px;
+  min-width: 60px;
+}
+
+.arch-divider-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #3d4f6e, transparent);
+  min-height: 40px;
+}
+
+.arch-divider-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #64748b;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .arch-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .arch-divider {
+    flex-direction: row;
+    min-width: auto;
+    padding: 4px 20px;
+  }
+  .arch-divider-line {
+    min-height: auto;
+    height: 1px;
+    width: 100%;
+  }
+  .arch-divider-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
