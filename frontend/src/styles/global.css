@@ -1,8 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+/* ====================================================
+   SAHARA WARM DESIGN SYSTEM v3.0 — Global Foundation
+   ==================================================== */
 
-:root { font-family: Manrope, Arial, sans-serif; color: #edf0f7; background: #0a0f1a; font-synthesis: none; }
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; background: radial-gradient(ellipse 80% 55% at 82% -10%, #1c294c 0%, transparent 58%), #0a0f1a; }
-button, input, select { font: inherit; }
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* ——— Design Tokens ——— */
+:root {
+  /* Canvas & Surface */
+  --color-canvas:         #faf5ee;
+  --color-surface:        #fffcf8;
+  --color-surface-low:    #f5efe6;
+  --color-surface-float:  #ffffff;
+  --color-well:           #3a302a;
+  --color-well-mid:       #4a3f38;
+  --color-well-ink:       #d4c9be;
+
+  /* Borders */
+  --color-border-subtle:  #e8e1d6;
+  --color-border-strong:  #cec5b5;
+  --color-border-focus:   #8b6f47;
+
+  /* Text */
+  --color-text-primary:   #2c2218;
+  --color-text-secondary: #6b5f52;
+  --color-text-tertiary:  #97897a;
+
+  /* Primary Accent — espresso copper */
+  --color-primary:        #7765dc;
+  --color-primary-hover:  #6252c4;
+  --color-primary-tint:   #f0eeff;
+
+  /* Secondary Accent — sage green */
+  --color-secondary:      #1ca875;
+  --color-secondary-tint: #eaf9f1;
+
+  /* Semantic */
+  --color-success:        #169666;
+  --color-success-tint:   #eaf9f1;
+  --color-success-border: #b8e6cf;
+  --color-warning:        #c47a1e;
+  --color-warning-tint:   #fff4e0;
+  --color-danger:         #c85c61;
+  --color-danger-tint:    #fff2f2;
+  --color-danger-border:  #f3cfce;
+  --color-info:           #2b6cb0;
+  --color-info-tint:      #ebf4ff;
+
+  /* Typography */
+  --font-serif:  'EB Garamond', 'Georgia', serif;
+  --font-body:   'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:   'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Shadows */
+  --shadow-card:  0 4px 14px rgba(60, 42, 24, .07), 0 1px 3px rgba(60, 42, 24, .05);
+  --shadow-float: 0 16px 40px rgba(60, 42, 24, .14), 0 2px 6px rgba(60, 42, 24, .06);
+}
+
+/* ——— Reset & Base ——— */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.55;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
-button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #8f7cff; outline-offset: 2px; }
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.15;
+}
+
+code, pre, .mono { font-family: var(--font-mono); }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }

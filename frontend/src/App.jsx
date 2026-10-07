@@ -1,33 +1,41 @@
 import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
 import ControlPanel from "./components/ControlPanel";
 import StatCard from "./components/StatCard";
 import MetricChart from "./components/MetricChart";
 import EvictionHistory from "./components/EvictionHistory";
 import LiveLogs from "./components/LiveLogs";
+import SmartCachePanel from "./components/SmartCachePanel";
+import ArchitectureDiagram from "./components/ArchitectureDiagram";
+import BenchmarkModal from "./components/BenchmarkModal";
 import { cacheApi } from "./services/cacheApi";
 import "./styles/dashboard.css";
 
-const menuItems = ["Traditional Baselines", "Smart Cache View", "Analytics", "Event log", "Settings"];
+const emptyStats = ["Hit rate", "Average latency", "Requests served", "Evictions", "Memory use", "Policy confidence"];
+const emptyCharts = [
+  { title: "Hit rate", unit: "%" },
+  { title: "Latency", unit: "ms" },
+  { title: "Throughput", unit: "req/s" },
+  { title: "Memory usage", unit: "%" },
+];
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [selectedMenuItem, setSelectedMenuItem] = useState(0);
   const [running, setRunning] = useState(false);
-  const [mode, setMode] = useState("traditional");
+  const [mode, setMode] = useState("smart");
   const [workload, setWorkload] = useState("cyclic.log");
   const [cacheSize, setCacheSize] = useState(512);
   const [refreshInterval, setRefreshInterval] = useState(100);
-  const [snapshot, setSnapshot] = useState({ stats: [], charts: [], evictions: [], logs: [], updatedAt: null });
+  const [isBenchmarksOpen, setIsBenchmarksOpen] = useState(false);
+  const [snapshot, setSnapshot] = useState({ stats: [], charts: [], evictions: [], logs: [], updatedAt: null, smartcache_status: null });
   const [connectionError, setConnectionError] = useState("");
 
   async function loadSnapshot() {
     try {
       const data = await cacheApi.getSnapshot();
-      setSnapshot({ stats: [], charts: [], evictions: [], logs: [], ...data });
+      setSnapshot({ stats: [], charts: [], evictions: [], logs: [], smartcache_status: null, ...data });
       setRunning(Boolean(data.running));
       if (data.mode) {
         setMode(data.mode);
-        setSelectedMenuItem(data.mode === "smart" ? 1 : 0);
       }
       setConnectionError("");
     } catch (error) {
@@ -69,23 +77,33 @@ function App() {
 
   const handleModeChange = (newMode) => {
     setMode(newMode);
-    setSelectedMenuItem(newMode === "smart" ? 1 : 0);
-  };
-
-  const handleSidebarSelect = (index) => {
-    setSelectedMenuItem(index);
-    if (index === 0) {
-      setMode("traditional");
-    } else if (index === 1) {
-      setMode("smart");
-    }
   };
 
   return (
     <div className="app-shell">
       <div className="app-main">
+        <Navbar 
+          onOpenBenchmarks={() => setIsBenchmarksOpen(true)}
+          onUpload={() => alert("Upload trace file: Choose .log or .trace workload.")}
+          onExport={() => alert("Export report: Downloading telemetry summary.")}
+        />
         <main className="dashboard-content">
-
+          <section className="page-heading">
+            <div>
+              <p className="eyebrow">SMRITI / OPERATIONS</p>
+              <h1>Smart memory, clearly observed.</h1>
+              <p className="subtitle">Monitor replacement decisions and tune cache workloads from one focused operational view.</p>
+            </div>
+            <div className="heading-meta">
+              <span className={`service-indicator ${connectionError ? "offline" : ""}`}>
+                <i />
+                {connectionError ? "API offline" : "API connected"}
+              </span>
+              <div className="last-updated">
+                Last refresh <strong>{snapshot.updatedAt ?? "—"}</strong>
+              </div>
+            </div>
+          </section>
 
           <ControlPanel
             running={running}
@@ -104,36 +122,45 @@ function App() {
 
           {connectionError && <p className="connection-notice">{connectionError}</p>}
 
-          {mode === "smart" ? (
-            <div className="wip-container" style={{ padding: "60px 40px", background: "rgba(19, 26, 42, .76)", border: "1px solid #273148", borderRadius: "13px", textAlign: "center", margin: "20px 0" }}>
-              <h2 style={{ fontSize: "22px", marginBottom: "15px", color: "#cbd2df", fontWeight: "600" }}>Smart Cache (Decoupled Asynchronous AI)</h2>
-              <p style={{ color: "#a5adbd", fontSize: "14px", maxWidth: "600px", margin: "0 auto 25px", lineHeight: "1.6" }}>
-                The decoupled background AI worker, LSTM pattern sequence-prediction engine, and the shared-memory Kill List structure are currently under development. Traditional cache simulations are fully functional.
-              </p>
-              <span className="reason-tag" style={{ background: "rgba(169, 154, 248, 0.15)", color: "#a99af8", padding: "8px 16px", borderRadius: "20px", fontWeight: "800", fontSize: "11px", letterSpacing: "0.08em" }}>
-                WORK IN PROGRESS
-              </span>
-            </div>
-          ) : (
-            <>
-              <section className="stats-grid" aria-label="Current performance statistics">
-                {snapshot.stats.length ? snapshot.stats.map((stat) => <StatCard key={stat.label} {...stat} />) : <div className="empty-dashboard-state">No performance metrics received yet. Start the simulation above.</div>}
-              </section>
+          {/* Stat cards — shows live metrics or awaiting placeholders */}
+          <section className="stats-grid" aria-label="Current performance statistics">
+            {snapshot.stats.length
+              ? snapshot.stats.map((stat) => <StatCard key={stat.label} {...stat} />)
+              : emptyStats.map((label) => <StatCard key={label} label={label} />)}
+          </section>
 
-              <section className="chart-grid">
-                {snapshot.charts.map((chart) => <MetricChart key={chart.title} {...chart} />)}
-              </section>
+          {/* Charts — shows live charts or SVG placeholder cards */}
+          <section className="chart-grid">
+            {(snapshot.charts.length ? snapshot.charts : emptyCharts).map((chart) => (
+              <MetricChart key={chart.title} {...chart} />
+            ))}
+          </section>
 
-              <section className="lower-grid">
-                <EvictionHistory rows={snapshot.evictions} />
-                <LiveLogs logs={snapshot.logs} running={running} />
-              </section>
-            </>
+          {/* SmartCache AI Engine Panel — shown only in smart mode */}
+          {mode === "smart" && (
+            <SmartCachePanel status={snapshot.smartcache_status} running={running} />
           )}
+
+          {/* Architecture Diagram — shown in smart mode */}
+          {mode === "smart" && (
+            <ArchitectureDiagram status={snapshot.smartcache_status} />
+          )}
+
+          {/* Lower grid — eviction history + live logs */}
+          <section className="lower-grid">
+            <EvictionHistory rows={snapshot.evictions} />
+            <LiveLogs logs={snapshot.logs} running={running} />
+          </section>
         </main>
       </div>
+
+      <BenchmarkModal 
+        isOpen={isBenchmarksOpen} 
+        onClose={() => setIsBenchmarksOpen(false)} 
+      />
     </div>
   );
 }
 
 export default App;
+

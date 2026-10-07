@@ -1,1 +1,14 @@
-.stat-card { min-height:132px; padding:17px; background:rgba(19,26,42,.76); border:1px solid #273148; border-radius:12px; }.stat-card > p { margin:0 0 13px; color:#99a3b5; font-size:11px; font-weight:600; }.stat-value { color:#f1f3f8; font-size:25px; letter-spacing:-.06em; font-weight:700; line-height:1; }.stat-value span { color:#9ca6b9; font-size:12px; font-weight:600; letter-spacing:-.02em; margin-left:3px; }.stat-foot { margin-top:15px; display:flex; gap:8px; align-items:center; white-space:nowrap; }.stat-foot small { color:#737e93; font-size:9px; }.trend { display:flex; align-items:center; gap:1px; font-size:10px; font-weight:800; }.trend.up { color:#62dba9; }.trend.down { color:#91a9ff; }
+/* ===== Stat Card — Sahara Warm ===== */
+.stat-card { min-height: 128px; padding: 16px; position: relative; overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-border-subtle); border-radius: 10px; box-shadow: var(--shadow-card); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(119, 101, 220, .35); box-shadow: 0 8px 24px rgba(60, 42, 24, .10); }
+.stat-card::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 3px; border-radius: 0 3px 3px 0; background: var(--color-primary); opacity: .85; }
+.stat-card > p { margin: 0 0 11px 8px; color: var(--color-text-tertiary); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-family: var(--font-body); }
+.stat-value { color: var(--color-text-primary); margin-left: 8px; font-size: 24px; letter-spacing: -.04em; font-weight: 700; line-height: 1; font-family: var(--font-mono); }
+.stat-value span { color: var(--color-text-tertiary); font-size: 11px; font-weight: 500; letter-spacing: -.01em; margin-left: 4px; font-family: var(--font-body); }
+.stat-foot { margin: 14px 0 0 8px; display: flex; gap: 8px; align-items: center; white-space: nowrap; }
+.stat-foot small { color: var(--color-text-tertiary); font-size: 9px; font-family: var(--font-body); }
+.trend { display: flex; align-items: center; gap: 1px; font-size: 9px; font-weight: 800; font-family: var(--font-body); }
+.trend.up { color: var(--color-success); }
+.trend.down { color: var(--color-primary); }
+.stat-pending::before { background: var(--color-border-strong); }
+.stat-pending .stat-value { color: var(--color-border-strong); }

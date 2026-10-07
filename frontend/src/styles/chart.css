@@ -1,2 +1,18 @@
-.chart-card { min-height:215px; padding:18px 18px 13px; background:rgba(19,26,42,.76); border:1px solid #273148; border-radius:12px; overflow:hidden; }.chart-heading { display:flex; align-items:flex-start; justify-content:space-between; }.chart-heading p { color:#98a3b7; font-size:11px; font-weight:600; margin:0 0 7px; }.chart-heading strong { font-size:21px; letter-spacing:-.05em; }.chart-heading strong span { color:#99a4b7; font-size:10px; letter-spacing:0; margin-left:3px; }.chart-heading > span { border-radius:10px; padding:4px 7px; font-size:9px; font-weight:700; }.positive { color:#64d7a8; background:rgba(63,176,132,.12); }.neutral { color:#a99cff; background:rgba(151,128,255,.13); }.chart-card svg { width:100%; height:112px; display:block; margin-top:8px; }.chart-axis { display:flex; justify-content:space-between; color:#657087; font-family:"DM Mono",monospace; font-size:8px; }
-.chart-empty { display:flex; flex-direction:column; justify-content:center; gap:8px; color:#7f8a9e; font-size:11px; }.chart-empty p { margin:0; color:#98a3b7; font-size:11px; font-weight:600; }.chart-empty strong { color:#f1f3f8; font-size:21px; letter-spacing:-.05em; }.chart-empty strong span { color:#99a4b7; font-size:10px; margin-left:3px; }
+/* ===== Chart Card — Sahara Warm ===== */
+.chart-card { min-height: 210px; padding: 17px 17px 13px; background: var(--color-surface); border: 1px solid var(--color-border-subtle); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-card); }
+.chart-heading { display: flex; align-items: flex-start; justify-content: space-between; }
+.chart-heading p { color: var(--color-text-tertiary); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 8px; font-family: var(--font-body); }
+.chart-heading strong { color: var(--color-text-primary); font-size: 20px; letter-spacing: -.04em; font-family: var(--font-mono); }
+.chart-heading strong span { color: var(--color-text-tertiary); font-size: 10px; letter-spacing: 0; margin-left: 3px; font-family: var(--font-body); }
+.chart-heading > span { border-radius: 10px; padding: 4px 8px; font-size: 9px; font-weight: 700; font-family: var(--font-body); }
+.positive { color: var(--color-success); background: var(--color-success-tint); }
+.neutral { color: var(--color-primary); background: var(--color-primary-tint); }
+.chart-card svg { width: 100%; height: 108px; display: block; margin-top: 8px; }
+.chart-axis { display: flex; justify-content: space-between; color: var(--color-text-tertiary); font-family: var(--font-mono); font-size: 8px; margin-top: 4px; }
+.chart-empty { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; color: var(--color-text-secondary); font-size: 10px; }
+.chart-empty p { margin: 0 0 8px; color: var(--color-text-tertiary); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-family: var(--font-body); }
+.chart-empty strong { color: var(--color-border-strong); font-size: 20px; letter-spacing: -.04em; font-family: var(--font-mono); }
+.chart-empty strong span { color: var(--color-border-strong); font-size: 10px; margin-left: 3px; }
+.chart-empty .chart-placeholder { width: 100%; height: 66px; margin: 0; border-bottom: 1px solid var(--color-border-subtle); }
+.placeholder-area { fill: rgba(119, 101, 220, .07); }
+.placeholder-line { fill: none; stroke: rgba(119, 101, 220, .5); stroke-width: 2; vector-effect: non-scaling-stroke; }

@@ -1,2 +1,197 @@
-.control-panel { display: grid; grid-template-columns: 1.25fr 1fr .8fr auto; align-items: end; gap: 22px; padding: 17px 19px 17px 22px; border: 1px solid #293550; background: linear-gradient(105deg,rgba(31,38,61,.82),rgba(17,24,40,.9)); border-radius: 13px; }.control-intro { align-self: center; }.algorithm { font-size: 13px; font-weight: 700; }.algorithm em { color:#7d88a0; font-style:normal; font-weight:500; } label { color:#8e98ac; font-size:10px; font-weight:700; display:grid; gap:6px; } select,.input-suffix { height:34px; border:1px solid #33405a; border-radius:7px; background:#111827; color:#d8dfeb; font-size:11px; } select { padding:0 10px; } .input-suffix { display:flex; align-items:center; padding-right:9px; }.input-suffix input { min-width:0; width:100%; height:100%; background:transparent; border:0; padding:0 10px; color:#d8dfeb; }.input-suffix span { color:#747f94; }.control-buttons { display:flex; gap:8px; }.button { height:34px; border:0; border-radius:7px; padding:0 12px; display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; }.button-primary { color:#18132a; background:#a695f7; }.button-stop { color:#211218; background:#f5a0a8; }.button-quiet { color:#aeb7c8; background:transparent; border:1px solid #374158; }
-@media(max-width:1050px){.control-panel{grid-template-columns:1fr 1fr;}.control-intro{display:none;}.control-buttons{justify-content:flex-end;}}@media(max-width:560px){.control-panel{grid-template-columns:1fr;gap:14px;}.control-buttons{justify-content:flex-start;}}
+/* ====================================================
+   Simulation Controls Strip
+   Exact match to Screenshot 1 Sahara Warm theme
+   ==================================================== */
+
+.control-strip-card {
+  background: var(--color-surface, #fffcf8);
+  border: 1px solid #e8e1d6;
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 3px rgba(60, 42, 24, 0.04);
+  flex-wrap: wrap;
+}
+
+/* Individual field */
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+
+.control-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  color: #726456;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.control-label-dot {
+  color: #964407;
+  font-size: 9px;
+  line-height: 1;
+}
+
+/* Select wrapper */
+.control-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.control-select {
+  width: 100%;
+  height: 38px;
+  background: #fbf7f0;
+  border: 1px solid #decbb5;
+  border-radius: 9px;
+  padding: 0 28px 0 12px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  color: #2c2218;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.control-select:focus {
+  border-color: #964407;
+}
+
+.control-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 11px;
+  color: #8c7f72;
+}
+
+/* Input wrapper */
+.control-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 38px;
+  background: #fbf7f0;
+  border: 1px solid #decbb5;
+  border-radius: 9px;
+  transition: border-color 0.15s ease;
+}
+
+.control-input-wrapper:focus-within {
+  border-color: #964407;
+}
+
+.control-input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0 46px 0 12px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: #2c2218;
+  outline: none;
+}
+
+.control-input-suffix {
+  position: absolute;
+  right: 12px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 10.5px;
+  color: #8c7f72;
+  pointer-events: none;
+}
+
+/* Actions buttons strip */
+.control-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Primary Start Run button */
+.control-btn-start {
+  height: 38px;
+  background: #964407;
+  color: #ffffff;
+  border: none;
+  border-radius: 9px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(150, 68, 7, 0.25);
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+
+.control-btn-start:hover:not(:disabled) {
+  background: #7d3704;
+}
+
+.control-btn-start:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Outline Buttons (Stop, Reset) */
+.control-btn-outline {
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #d8ccbd;
+  color: #8c7365;
+  border-radius: 9px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.control-btn-outline:hover:not(:disabled) {
+  background: #fbf7f0;
+  color: #2c2218;
+  border-color: #baa793;
+}
+
+.control-btn-outline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .control-strip-card {
+    gap: 12px;
+  }
+  .control-actions {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}

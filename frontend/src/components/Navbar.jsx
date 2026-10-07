@@ -1,16 +1,53 @@
-import { Bell, Menu, Search } from "lucide-react";
+import { Upload, Download, BarChart2 } from "lucide-react";
+import smritiLogo from "../assets/smriti-logo.png";
 import "../styles/navbar.css";
 
-function Navbar({ onMenuClick, running }) {
-  return <header className="navbar">
-    <button className="icon-button menu-button" onClick={onMenuClick} aria-label="Toggle navigation"><Menu size={20} /></button>
-    <div className="mobile-brand">cacheflow</div>
-    <div className="nav-actions">
-      <button className="icon-button search-button" aria-label="Search"><Search size={19} /></button>
-      <button className="icon-button notification-button" aria-label="Notifications"><Bell size={19} /><span /></button>
-      <div className="run-status"><i className={running ? "active" : ""} />{running ? "Simulation running" : "Simulation paused"}</div>
-      <div className="avatar">IK</div>
-    </div>
-  </header>;
+function Navbar({ onOpenBenchmarks, onUpload, onExport }) {
+  return (
+    <header className="smartcache-navbar">
+      <div className="navbar-container">
+        {/* Brand Left */}
+        <div className="navbar-brand">
+          <img src={smritiLogo} alt="SmartCache Logo" className="navbar-brand-logo" />
+          <div className="navbar-brand-text">
+            <span className="navbar-brand-title">SMRITI</span>
+            <span className="navbar-brand-sub">Smart Memory Replacement with Independent Threaded Inference</span>
+          </div>
+        </div>
+
+        {/* Actions Right */}
+        <div className="navbar-actions">
+          <button
+            type="button"
+            className="navbar-btn-outline"
+            onClick={onUpload}
+          >
+            <Upload size={14} />
+            <span>Upload Workload</span>
+          </button>
+
+          <button
+            type="button"
+            className="navbar-btn-outline"
+            onClick={onExport}
+          >
+            <Download size={14} />
+            <span>Export Report</span>
+          </button>
+
+          <button
+            type="button"
+            className="navbar-btn-primary"
+            onClick={onOpenBenchmarks}
+          >
+            <BarChart2 size={14} />
+            <span>Policy Benchmarks</span>
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 }
+
 export default Navbar;
+

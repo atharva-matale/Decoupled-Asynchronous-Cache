@@ -265,11 +265,16 @@ def run_simulation_thread(mode, workload_name, capacity, N_refresh):
                 chart_history["lfu_hit_rate"].append(lfu_hr)
                 chart_history["mru_hit_rate"].append(mru_hr)
 
+                fifo_ev = getattr(caches["FIFO"], "evictions", 0)
+                lru_ev = getattr(caches["LRU"], "evictions", 0)
+                lfu_ev = getattr(caches["LFU"], "evictions", 0)
+                mru_ev = getattr(caches["MRU"], "evictions", 0)
+
                 sim_state["stats"] = [
-                    {"label": "FIFO Hit Rate", "value": str(fifo_hr), "unit": "%", "change": "+0.5%", "direction": "up", "note": "First-In First-Out"},
-                    {"label": "LRU Hit Rate", "value": str(lru_hr), "unit": "%", "change": "+1.2%", "direction": "up", "note": "Least Recently Used"},
-                    {"label": "LFU Hit Rate", "value": str(lfu_hr), "unit": "%", "change": "+2.0%", "direction": "up", "note": "Least Frequently Used"},
-                    {"label": "MRU Hit Rate", "value": str(mru_hr), "unit": "%", "change": "-0.8%", "direction": "down", "note": "Most Recently Used"},
+                    {"label": "LRU Hit Rate", "value": str(lru_hr), "unit": "%", "change": "+1.2%", "direction": "up", "note": "Least Recently Used", "evictions": lru_ev, "complexity": "O(1) DLL", "tag": "RECENCY"},
+                    {"label": "LFU Hit Rate", "value": str(lfu_hr), "unit": "%", "change": "+2.0%", "direction": "up", "note": "Least Frequently Used", "evictions": lfu_ev, "complexity": "O(1) Buckets", "tag": "FREQUENCY"},
+                    {"label": "FIFO Hit Rate", "value": str(fifo_hr), "unit": "%", "change": "+0.5%", "direction": "up", "note": "First-In First-Out Queue", "evictions": fifo_ev, "complexity": "O(1) Ring", "tag": "QUEUE"},
+                    {"label": "MRU Hit Rate", "value": str(mru_hr), "unit": "%", "change": "-0.8%", "direction": "down", "note": "Most Recently Used Drop", "evictions": mru_ev, "complexity": "O(1) Stack", "tag": "ANTI-RECENCY"},
                 ]
 
                 sim_state["charts"] = [

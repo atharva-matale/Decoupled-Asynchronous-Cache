@@ -1,2 +1,132 @@
-.navbar { height: 68px; padding: 0 36px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #202a3d; background: rgba(10,15,26,.55); backdrop-filter: blur(16px); }.nav-actions { display: flex; align-items: center; gap: 13px; }.icon-button { color: #aeb7c8; border: 0; background: transparent; padding: 6px; display: grid; place-items: center; }.notification-button { position: relative; }.notification-button span { width: 5px; height: 5px; background: #c2a6ff; border-radius: 50%; position: absolute; top: 6px; right: 5px; }.run-status { display: flex; align-items: center; gap: 7px; margin: 0 10px; font-size: 11px; color: #939caf; }.run-status i { height: 7px; width: 7px; background: #687386; border-radius: 50%; }.run-status i.active { background: #67e8b6; box-shadow: 0 0 10px #67e8b6; }.avatar { height: 29px; width: 29px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg,#7465da,#b378cf); font-size: 10px; font-weight: 800; }.menu-button { display: none; }.mobile-brand { display: none; }
-@media (max-width: 880px) { .navbar { padding: 0 18px; }.menu-button,.mobile-brand { display: grid; }.mobile-brand { font-weight: 800; letter-spacing: -.06em; }.search-button { display: none; }.run-status { display: none; }.nav-actions { gap: 5px; } }
+/* ====================================================
+   Navbar Header
+   Exact match to Screenshot 1 Sahara Warm theme
+   ==================================================== */
+
+.smartcache-navbar {
+  height: 70px;
+  background: var(--color-surface, #fffcf8);
+  border-bottom: 1px solid #ebd9c5;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(60, 42, 24, 0.03);
+}
+
+.navbar-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-brand-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid #e2d2c1;
+}
+
+.navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-brand-title {
+  font-family: var(--font-serif, 'EB Garamond', Georgia, serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: #2c2218;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.navbar-brand-sub {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #8c7f72;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Actions Right */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-btn-outline {
+  height: 36px;
+  background: #ffffff;
+  border: 1px solid #d8ccbd;
+  color: #5d4f43;
+  border-radius: 8px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.navbar-btn-outline:hover {
+  background: #fbf7f0;
+  color: #2c2218;
+  border-color: #baa793;
+}
+
+.navbar-btn-primary {
+  height: 36px;
+  background: #964407;
+  color: #ffffff;
+  border: 1px solid #823803;
+  border-radius: 8px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(150, 68, 7, 0.25);
+  transition: background-color 0.15s ease;
+}
+
+.navbar-btn-primary:hover {
+  background: #7d3704;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 18px;
+  }
+  .navbar-brand-sub {
+    display: none;
+  }
+  .navbar-btn-outline span {
+    display: none;
+  }
+  .navbar-btn-outline {
+    padding: 0 10px;
+  }
+}
